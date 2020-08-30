@@ -53,10 +53,10 @@ path,i,svg{
     border-top-right-radius: 1rem;
     border-bottom-left-radius: 1rem;
     background: white;
-    opacity: 0;
-    pointer-events: none;
+    // opacity: 0;
+    // pointer-events: none;
     // adjustment class
-    transform: translateY(100px);
+    // transform: translateY(100px);
     transition: all 1.0s ease-in-out;
 }
 
@@ -122,4 +122,15 @@ align-items: center;
     cursor: pointer;
     margin: 2rem 0rem;
 
+}
+
+//slider specfic
+
+input[type="range"]{
+    appearance: none;
+    margin: 1rem 0rem;
+    width: 100%;
+    position: relative;
+    border-radius: 1rem;
+    cursor: pointer;
 }
