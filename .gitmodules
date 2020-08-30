@@ -1,0 +1,3 @@
+[submodule "path_to_submodule"] 
+  path = color-app
+  url = https://github.com/jamieTardi/color-app.git
