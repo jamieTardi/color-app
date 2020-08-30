@@ -8,6 +8,12 @@ let initialColors;
 //event listner
 sliders.forEach(slider => {
     slider.addEventListener('input', hslControls);
+});
+colorDivs.forEach((slider, index) => {
+    slider.addEventListener('change', () => {
+        //callback function (the function defintion is at the bottom)
+        updateTextUI(index);
+    })
 })
 
 
@@ -25,14 +31,13 @@ randomColors = () => {
         const hextText = div.children[0];
         const randomColor = generateHex()
         //Add the color to the background
-        div.style.background = randomColor;
+        div.style.backgroundColor = randomColor;
         hextText.innerText = randomColor
         //contrast checking
         checkTextContrast(randomColor, hextText)
         //Intialize Color Sliders
         const color = chroma(randomColor);
         const sliders = div.querySelectorAll('.sliders input');
-        console.log(sliders)
         const hue = sliders[0];
         const brightness = sliders[1];
         const saturation = sliders[2]
@@ -93,6 +98,17 @@ function hslControls (e) {
 
                   colorDivs[index].style.background = color;
 }
-
+function updateTextUI(index){
+    const activeDiv = colorDivs[index]
+    const color = chroma(activeDiv.style.backgroundColor);
+    const textHex = activeDiv.querySelector('h2');
+    const icons = activeDiv.querySelectorAll('.controls button')
+    textHex.innerText = color.hex();
+    //Checking the contrast
+    checkTextContrast(color, textHex)
+    for(icon of icons){
+        checkTextContrast(color, icon)
+    }
+}
 
 randomColors()
