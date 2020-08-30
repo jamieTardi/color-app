@@ -55,9 +55,14 @@ colorizeSliders = (color, hue, brightness, saturation) => {
     const midBright = color.set('hsl.l', 0.5);
     const scaleBright = chroma.scale (['black', midBright, 'white'])
 
+    //scale HUE
+    const midHue = color.set('hsl.h', 0.5);
+    const scaleHue = chroma.scale (['black', midHue, 'white'])
+
     //Update the input colors
     saturation.style.backgroundImage = `linear-gradient(to right, ${scaleSat(0)}, ${scaleSat(1)})`
-    brightness.style.backgroundImage =  `linear-gradient(to right, ${scaleBright(1)}, ${scaleBright(0.5)} , ${scaleBright(0)})`
+    brightness.style.backgroundImage = `linear-gradient(to right, ${scaleBright(1)}, ${scaleBright(0.5)} , ${scaleBright(0)})`
+    hue.style.backgroundImage = `linear-gradient(to right, rgb(204,75,75), rgb(204,204,75), rgb(75,204,75), rgb(75,204,204), rgb(75,75,204), rgb(204,75,204),rgb(204,75,75))`
 }
 
 
