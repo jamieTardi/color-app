@@ -9,6 +9,8 @@ const closeAdjustments = document.querySelectorAll('.close-adjustment');
 const sliderContainers = document.querySelectorAll('.sliders');
 const lockButton = document.querySelectorAll('.lock')
 let initialColors;
+//local storage
+let savedPalettes = [];
 
 //event listner
 
@@ -231,5 +233,22 @@ function locked (index){
     lockButton[index].firstChild.classList.toggle(`fa-lock`); 
 }
 
+//Palette saving and Local storage.
+const saveBtn = document.querySelector('.submit-save')
+const submitSave = document.querySelector('.save');
+const closeSave = document.querySelector('.close-save');
+const saveContainer = document.querySelector('.save-container');
+const saveInput = document.querySelector('.save-container input');
+
+//Event Listners
+console.log(saveBtn)
+saveBtn.addEventListener('click', openPalette)
+
+function openPalette(e){
+    const popup = saveContainer.children[0];
+    saveContainer.classList.add('active');
+    popup.classList.add('active');
+
+}
 
 randomColors()
