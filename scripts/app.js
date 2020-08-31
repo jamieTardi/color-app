@@ -14,6 +14,11 @@ colorDivs.forEach((slider, index) => {
         //callback function (the function defintion is at the bottom)
         updateTextUI(index);
     })
+});
+currentHexes.forEach(hex => {
+    hex.addEventListener('click', () => {
+        copyToClipboard(hex)
+    })
 })
 
 
@@ -50,6 +55,8 @@ randomColors = () => {
 
         colorizeSliders (color, hue, brightness, saturation);
     })
+    //reset the input sliders
+    resetInputs();
 }
 
 //White text on a dark background and vice versa.
@@ -103,6 +110,10 @@ function hslControls (e) {
                   .set('hsl.h', hue.value);
 
                   colorDivs[index].style.background = color;
+
+                  //colorize the sliders
+                  colorizeSliders(color, hue, brightness, saturation)
+
 }
 function updateTextUI(index){
     const activeDiv = colorDivs[index]
@@ -115,6 +126,43 @@ function updateTextUI(index){
     for(icon of icons){
         checkTextContrast(color, icon)
     }
+}
+
+
+//Funtion to reset the hue saturation and luminance on refresh. 
+function resetInputs(){
+    const sliders = document.querySelectorAll('.sliders input')
+    sliders.forEach((slider) => {
+        if(slider.name === 'hue'){
+            const hueColor = initialColors[slider.getAttribute('data-hue')]
+            const hueValue = chroma(hueColor).hsl()[0]
+            slider.value = Math.floor(hueValue);
+            console.log(slider.value)
+        }
+        if(slider.name === 'brightness'){
+            const brightColor = initialColors[slider.getAttribute('data-bright')]
+            const brightValue = chroma(brightColor).hsl()[2]
+            slider.value = Math.floor(brightValue * 100) / 100;
+            console.log(slider.value)
+        }
+        if(slider.name === 'saturation'){
+            const satColor = initialColors[slider.getAttribute('data-sat')]
+            const satValue = chroma(satColor).hsl()[1]
+            slider.value = Math.floor(satValue * 100) / 100;
+            console.log(slider.value)
+        }
+    })
+}
+
+//copying to the clip board functionality
+
+function copyToClipboard (hex) {
+    const el = document.createElement('textarea')
+    el.value = hex.innerText;
+    document.body.appendChild(el)
+    el.select();
+    document.execCommand('copy');
+    document.body.removeChild(el)
 }
 
 randomColors()
