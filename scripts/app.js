@@ -44,6 +44,11 @@ closeAdjustments.forEach((button, index) =>{
     })
 })
 
+lockButton.forEach((button, index) => {
+    button.addEventListener('click', () => {
+        locked(index)
+    })
+})
 
 
 
@@ -64,8 +69,15 @@ randomColors = () => {
     colorDivs.forEach((div, index) => {
         const hextText = div.children[0];
         const randomColor = generateHex()
+
         //Add the generated hex tot the array
-        initialColors.push(chroma(randomColor).hex())
+        if(div.classList.contains('locked')){
+            initialColors.push(hextText.innerText);
+            return;
+        }
+        else{
+        initialColors.push(chroma(randomColor).hex());
+        }
 
         //Add the color to the background
         div.style.backgroundColor = randomColor;
@@ -212,4 +224,12 @@ function closeAdustPanel(index){
 }
 //event listner for random colors
 generateBtn.addEventListener('click', randomColors)
+
+function locked (index){
+    colorDivs[index].classList.toggle('locked')
+    lockButton[index].firstChild.classList.toggle(`fa-lock-open`);
+    lockButton[index].firstChild.classList.toggle(`fa-lock`); 
+}
+
+
 randomColors()
