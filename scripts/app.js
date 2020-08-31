@@ -2,10 +2,16 @@
 const colorDivs = document.querySelectorAll('.color');
 const generateBtn = document.querySelector('.generate');
 const sliders = document.querySelectorAll ('input[type="range"]')
-const currentHexes = document.querySelectorAll('.color h2')
+const currentHexes = document.querySelectorAll('.color h2');
+const popup = document.querySelector('.copy-container')
+const adjustButton = document.querySelectorAll('.adjust');
+const closeAdjustments = document.querySelectorAll('.close-adjustment');
+const sliderContainers = document.querySelectorAll('.sliders');
+const lockButton = document.querySelectorAll('.lock')
 let initialColors;
 
 //event listner
+
 sliders.forEach(slider => {
     slider.addEventListener('input', hslControls);
 });
@@ -20,6 +26,26 @@ currentHexes.forEach(hex => {
         copyToClipboard(hex)
     })
 })
+
+popup.addEventListener('transitionend', () => {
+  const popupBox = popup.children[0]
+  popup.classList.remove('active');
+  popupBox.classList.remove('active'); 
+})
+adjustButton.forEach((button, index) => {
+    button.addEventListener('click', () => {
+        openAdjustmentPanel(index)
+    })
+})
+
+closeAdjustments.forEach((button, index) =>{
+    button.addEventListener('click', () => {
+        closeAdustPanel(index)
+    })
+})
+
+
+
 
 
 //functions
@@ -57,6 +83,12 @@ randomColors = () => {
     })
     //reset the input sliders
     resetInputs();
+    //Check for contrast
+    adjustButton.forEach((button,index) => {
+        checkTextContrast(initialColors[index], button) 
+        checkTextContrast(initialColors[index], lockButton[index])
+        
+    })
 }
 
 //White text on a dark background and vice versa.
@@ -155,7 +187,6 @@ function resetInputs(){
 }
 
 //copying to the clip board functionality
-
 function copyToClipboard (hex) {
     const el = document.createElement('textarea')
     el.value = hex.innerText;
@@ -163,6 +194,22 @@ function copyToClipboard (hex) {
     el.select();
     document.execCommand('copy');
     document.body.removeChild(el)
+
+    //Deal with the pop up once copied, grab the first child (the entire div)
+    const popupBox = popup.children[0]
+    popup.classList.add('active')
+    popupBox.classList.add('active')
 }
 
+//opening the adjust panel for HSL
+function openAdjustmentPanel(index){
+    sliderContainers[index].classList.toggle('active')
+}
+
+//Using the x button to close. Rememeber the index is giving us access to the button event listener
+function closeAdustPanel(index){
+    sliderContainers[index].classList.remove('active')
+}
+//event listner for random colors
+generateBtn.addEventListener('click', randomColors)
 randomColors()

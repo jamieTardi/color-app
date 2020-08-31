@@ -53,14 +53,14 @@ path,i,svg{
     border-top-right-radius: 1rem;
     border-bottom-left-radius: 1rem;
     background: white;
-    // opacity: 0;
-    // pointer-events: none;
+    opacity: 0;
+    pointer-events: none;
     // adjustment class
-    // transform: translateY(100px);
+    transform: translateY(100px);
     transition: all 1.0s ease-in-out;
 }
 
-.sliders-active{
+.sliders.active{
     //hidden slider
     opacity: 1;
     transform: translateY(0px);
@@ -147,6 +147,11 @@ input[type="range"]{
     align-items: center;
     opacity: 0;
     pointer-events: none;
+    transition: all 1.4s ease;
+    
+    
+    
+
 }
 
 .copy-popup {
@@ -158,8 +163,7 @@ input[type="range"]{
     border-radius: 1rem;
     min-height: 20vh;
     min-width: 30vh;
-    transition: transform 0.5s ease;
-    transform: translateY(-2rem);
+    
     
 }
 
