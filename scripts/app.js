@@ -227,6 +227,7 @@ function closeAdustPanel(index){
 //event listner for random colors
 generateBtn.addEventListener('click', randomColors)
 
+//adding font icons on click of lock button
 function locked (index){
     colorDivs[index].classList.toggle('locked')
     lockButton[index].firstChild.classList.toggle(`fa-lock-open`);
@@ -244,7 +245,8 @@ const saveInput = document.querySelector('.save-container input');
 console.log(saveBtn)
 submitSave.addEventListener('click', openPalette)
 closeSave.addEventListener('click', closePalette)
-
+saveBtn.addEventListener('click', savePalette)
+//open a container when clicking on save
 function openPalette(e){
     console.log('working')
     const popup = saveContainer.children[0];
@@ -253,10 +255,48 @@ function openPalette(e){
 
 }
 
+//closing save container
 function closePalette(e){
     const popup = saveContainer.children[0];
     saveContainer.classList.toggle('active');
     popup.classList.add('remove');
 }
 
+function savePalette (e) {
+    saveContainer.classList.remove('active');
+    popup.classList.add('remove');
+    //Value from input field
+    const name = saveInput.value;
+    //Store colors in the empty array
+    const colors = [];
+    //for each hex push the hex into the empty array
+    currentHexes.forEach((hex) => {
+        colors.push(hex.innerText);
+    })
+    //Generate the object. this will be nothing or empty for the time being. Default saved is 5
+    let paletteNum = savedPalettes.length;
+
+    //object is the same as variable no need to name them
+    const paletteObj = {name, colors, num: paletteNum};
+    savedPalettes.push(paletteObj);
+    console.log(savedPalettes)
+    //save to local storage
+    saveToLocal(paletteObj);
+    saveInput.value = ''
+}
+
+function saveToLocal(paletteObj){
+    let localPalettes;
+    //if the local storage has nothing in it create the empty array
+    if(localStorage.getItem('palettes') === null){
+        localPalettes = [];
+    }else{
+        localPalettes = JSON.parse(localStorage.getItem('palettes'))
+    }
+    localPalettes.push(paletteObj);
+    localStorage.setItem('palettes', JSON.stringify(localPalettes))
+}
+
+
+//automatic generation of colors upon function call
 randomColors()
