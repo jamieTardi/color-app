@@ -174,11 +174,66 @@ input[type="range"]{
 .copy-popup h4,
 .save-popup h4,
 .library-popup h4{
-    font-size: 3rem;
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    padding: 0rem 1rem
 }
 
-.copy-container.active{
+.copy-container.active,
+.save-container.active,
+.library-container.active{
     opacity: 1;
     pointer-events: all;
 }
 
+.copy-popup.active,
+.save-container.active,
+.library-container.active{
+    transform: translateY()
+}
+
+.fa-times{
+    font-size: 2rem;
+}
+
+.close-save-container,
+.close-library-container{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 1rem;
+    margin-bottom: 1rem
+}
+
+.close-save,
+.close-library{
+    border: none;
+    background: #FFFFFF;
+    cursor: pointer;
+    &:hover{
+        transition: all 1.5s ease;
+        transform: rotate(360deg);
+        color: red
+    }
+}
+
+.save-name{
+    min-width: 75%;
+    font-size: 1rem;
+    
+}
+
+.submit-save{
+    border: none;
+    background: #339AF0;
+    padding: 0.5rem 1rem;
+    border-radius: 1rem;
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.5s ease;
+    &:hover{
+        scale: 1.1;
+        color: black;
+    }
+}

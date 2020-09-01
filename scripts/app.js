@@ -242,13 +242,21 @@ const saveInput = document.querySelector('.save-container input');
 
 //Event Listners
 console.log(saveBtn)
-saveBtn.addEventListener('click', openPalette)
+submitSave.addEventListener('click', openPalette)
+closeSave.addEventListener('click', closePalette)
 
 function openPalette(e){
+    console.log('working')
     const popup = saveContainer.children[0];
     saveContainer.classList.add('active');
     popup.classList.add('active');
 
+}
+
+function closePalette(e){
+    const popup = saveContainer.children[0];
+    saveContainer.classList.toggle('active');
+    popup.classList.add('remove');
 }
 
 randomColors()
